@@ -6,6 +6,17 @@ load_dotenv()
 
 BOT_TOKEN: str | None = os.getenv("BOT_TOKEN")
 CHAT_ID: str | None = os.getenv("CHAT_ID")
+if not BOT_TOKEN or not CHAT_ID:
+    raise ValueError("BOT_TOKEN и CHAT_ID должны быть заданы в .env")
+
+print(f"Build url: {os.getenv("BUILD_URL")}")
+print(f"Branch: {os.getenv("BRANCH")}")
+print(f"Repository: {os.getenv("REPO")}")
+print(f"User: {os.getenv("USER")}")
+print(f"Workflow: {os.getenv("WORKFLOW_NAME")}")
+print(f"Lint result: {os.getenv("LINT_RESULT")}")
+print(f"Deploy result: {os.getenv("DEPLOY_RESULT")}")
+print(f"Send info result: {os.getenv("SEND_INFO_RESULT")}")
 
 message: str = (
     f" <b>CI/CD Build Report</b>\n\n"
@@ -31,12 +42,3 @@ response: httpx.Response = httpx.post(
 )
 
 print(response.status_code, response.text)
-
-# print(f"Build url: {os.getenv("BUILD_URL")}")
-# print(f"Branch: {os.getenv("BRANCH")}")
-# print(f"Repository: {os.getenv("REPO")}")
-# print(f"User: {os.getenv("USER")}")
-# print(f"Workflow: {os.getenv("WORKFLOW_NAME")}")
-# print(f"Lint result: {os.getenv("LINT_RESULT")}")
-# print(f"Deploy result: {os.getenv("DEPLOY_RESULT")}")
-# print(f"Send info result: {os.getenv("SEND_INFO_RESULT")}")
