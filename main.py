@@ -1,5 +1,5 @@
 import os
-from models import Bot
+from classes import Bot
 
 
 message: str = (
@@ -17,3 +17,4 @@ message: str = (
 bot: Bot = Bot(message)
 
 bot.send_telegram_message()
+bot.send_yuchat_message()

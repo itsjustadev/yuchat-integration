@@ -13,6 +13,7 @@ class Bot:
         self.CHAT_ID: str | None = os.getenv("CHAT_ID")
         self.YUCHAT_TOKEN: str | None = os.getenv("YUCHAT_TOKEN")
         self.YUCHAT_CHAT_ID: str | None = os.getenv("YUCHAT_CHAT_ID")
+        self.YUCHAT_WORKSPACE: str | None = os.getenv("YUCHAT_WORKSPACE")
 
         if not self.BOT_TOKEN or not self.CHAT_ID:
             raise ValueError("BOT_TOKEN и CHAT_ID должны быть заданы в actions secrets")
@@ -40,10 +41,15 @@ class Bot:
 
         response: httpx.Response = httpx.post(
             url,
-            data={
-                "workspaceId": "w67Y89gu",
+            json={
+                "workspaceId": self.YUCHAT_WORKSPACE,
                 "chatId": self.YUCHAT_CHAT_ID,
                 "markdown": self.message,
+            },
+            headers={
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": f"Bearer {self.YUCHAT_TOKEN}",
             },
         )
 
