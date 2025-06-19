@@ -14,4 +14,6 @@ message: str = (
     f" <b>Send Info:</b> {os.getenv('SEND_INFO_RESULT')}"
 )
 
-Bot(message).send_telegram_message()
+bot: Bot = Bot(message)
+
+bot.send_telegram_message()
