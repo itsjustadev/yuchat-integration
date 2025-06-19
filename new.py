@@ -1,8 +1,8 @@
 import os
 
-print(os.getenv("BUILD_URL"))
-print(os.getenv("BRANCH"))
-print(os.getenv("REPO"))
-print(os.getenv("USER"))
-print(os.getenv("WORKFLOW_NAME"))
-print(os.getenv("JOB_RESULT"))
+print(f"Build url: {os.getenv("BUILD_URL")}")
+print(f"Branch: {os.getenv("BRANCH")}")
+print(f"Repository: {os.getenv("REPO")}")
+print(f"User: {os.getenv("USER")}")
+print(f"Workflow: {os.getenv("WORKFLOW_NAME")}")
+print(f"Job {os.getenv("WORKFLOW_NAME")} result: {os.getenv("JOB_RESULT")}")
