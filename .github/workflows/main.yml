@@ -83,4 +83,7 @@ jobs:
           LINT_RESULT: ${{ needs.lint.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
           SEND_INFO_RESULT: ${{ needs.get-info.result }}
-        run: python3 new.py
+        run: |
+          source .venv/bin/activate
+          python3 new.py
+        shell: bash
