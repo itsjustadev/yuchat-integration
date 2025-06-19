@@ -87,5 +87,5 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
           source .venv/bin/activate
-          python3 new.py
+          python3 main.py
         shell: bash
