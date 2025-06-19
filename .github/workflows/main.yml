@@ -1,4 +1,4 @@
-name: Log Build Info
+name: Run Python with env vars
 
 on:
   push:
@@ -6,24 +6,26 @@ on:
       - '**'
 
 jobs:
-  write-info:
-    name: Write build info to file
+  run-python:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Write workflow result to file
+      - name: Set env vars
         run: |
-          echo "info = {" > workflow_result.py
-          echo "    'url': 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'," >> workflow_result.py
-          echo "    'status': 'in_progress'," >> workflow_result.py
-          echo "    'branch': '${{ github.ref_name }}'," >> workflow_result.py
-          echo "    'repository': '${{ github.repository }}'," >> workflow_result.py
-          echo "    'user': '${{ github.actor }}'," >> workflow_result.py
-          echo "    'workflow': '${{ github.workflow }}'" >> workflow_result.py
-          echo "}" >> workflow_result.py
+          echo "BUILD_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "REPO=${{ github.repository }}" >> $GITHUB_ENV
+          echo "USER=${{ github.actor }}" >> $GITHUB_ENV
+          echo "WORKFLOW_NAME=${{ github.workflow }}" >> $GITHUB_ENV
 
-      - name: Print file contents
-        run: cat workflow_result.py
+      - name: Run python script
+        env:
+          BUILD_URL: ${{ env.BUILD_URL }}
+          BRANCH: ${{ env.BRANCH }}
+          REPO: ${{ env.REPO }}
+          USER: ${{ env.USER }}
+          WORKFLOW_NAME: ${{ env.WORKFLOW_NAME }}
+        run: python3 new.py
