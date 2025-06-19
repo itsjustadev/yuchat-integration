@@ -1,28 +1,26 @@
 from dotenv import load_dotenv
 import os
 import httpx
+from exceptions import TelegramAPIError, YuchatAPIError
+from abc import ABC
+
+load_dotenv()
 
 
-class Bot:
+class Bot(ABC):
+    def send_message(self) -> None:
+        pass
+
+
+class TelegramBot(Bot):
     def __init__(self, message: str) -> None:
-
-        load_dotenv()
-
         self.message: str = message
         self.BOT_TOKEN: str | None = os.getenv("BOT_TOKEN")
         self.CHAT_ID: str | None = os.getenv("CHAT_ID")
-        self.YUCHAT_TOKEN: str | None = os.getenv("YUCHAT_TOKEN")
-        self.YUCHAT_CHAT_ID: str | None = os.getenv("YUCHAT_CHAT_ID")
-        self.YUCHAT_WORKSPACE: str | None = os.getenv("YUCHAT_WORKSPACE")
-
         if not self.BOT_TOKEN or not self.CHAT_ID:
             raise ValueError("BOT_TOKEN и CHAT_ID должны быть заданы в actions secrets")
-        if not self.YUCHAT_TOKEN or not self.YUCHAT_CHAT_ID:
-            raise ValueError(
-                "YUCHAT_TOKEN и YUCHAT_CHAT_ID должны быть заданы в actions secrets"
-            )
 
-    def send_telegram_message(self) -> None:
+    def send_message(self) -> None:
         url: str = f"https://api.telegram.org/bot{self.BOT_TOKEN}/sendMessage"
 
         response: httpx.Response = httpx.post(
@@ -36,11 +34,24 @@ class Bot:
 
         print(response.status_code, response.text)
         if response.status_code != 200:
-            raise Exception(
+            raise TelegramAPIError(
                 f"Telegram API error: {response.status_code} {response.text}"
             )
 
-    def send_yuchat_message(self) -> None:
+
+class YuchatBot(Bot):
+    def __init__(self, message: str) -> None:
+        self.message: str = message
+        self.YUCHAT_TOKEN: str | None = os.getenv("YUCHAT_TOKEN")
+        self.YUCHAT_CHAT_ID: str | None = os.getenv("YUCHAT_CHAT_ID")
+        self.YUCHAT_WORKSPACE: str | None = os.getenv("YUCHAT_WORKSPACE")
+
+        if not self.YUCHAT_TOKEN or not self.YUCHAT_CHAT_ID:
+            raise ValueError(
+                "YUCHAT_TOKEN и YUCHAT_CHAT_ID должны быть заданы в actions secrets"
+            )
+
+    def send_message(self) -> None:
         url: str = "https://yuchat.ai/public/v1/chat.message.send"
 
         response: httpx.Response = httpx.post(
@@ -59,4 +70,6 @@ class Bot:
 
         print(response.status_code, response.text)
         if response.status_code != 200:
-            raise Exception(f"Yuchat API error: {response.status_code} {response.text}")
+            raise YuchatAPIError(
+                f"Yuchat API error: {response.status_code} {response.text}"
+            )

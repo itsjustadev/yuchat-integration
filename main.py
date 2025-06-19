@@ -1,5 +1,5 @@
 import os
-from classes import Bot
+from classes import TelegramBot, YuchatBot
 
 
 message: str = (
@@ -14,8 +14,5 @@ message: str = (
     f"<b>Send Info:</b> {os.getenv('SEND_INFO_RESULT')}"
 )
 
-bot: Bot = Bot(message)
-
-
-bot.send_telegram_message()
-bot.send_yuchat_message()
+TelegramBot(message).send_message()
+YuchatBot(message).send_message()
