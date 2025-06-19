@@ -16,5 +16,6 @@ message: str = (
 
 bot: Bot = Bot(message)
 
+
 bot.send_telegram_message()
 bot.send_yuchat_message()
