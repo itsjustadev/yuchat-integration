@@ -35,6 +35,10 @@ class Bot:
         )
 
         print(response.status_code, response.text)
+        if response.status_code != 200:
+            raise Exception(
+                f"Telegram API error: {response.status_code} {response.text}"
+            )
 
     def send_yuchat_message(self) -> None:
         url: str = "https://yuchat.ai/public/v1/chat.message.send"
@@ -54,3 +58,5 @@ class Bot:
         )
 
         print(response.status_code, response.text)
+        if response.status_code != 200:
+            raise Exception(f"Yuchat API error: {response.status_code} {response.text}")
