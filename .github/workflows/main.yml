@@ -1,4 +1,4 @@
-name: get pipeline info
+name: test workflow
 
 on:
   push:
@@ -58,7 +58,7 @@ jobs:
       - name: Deploy stub
         run: echo "This is a deploy job. You can add additional logic here"
   
-  check-send-info-success:
+  check-jobs-success:
     runs-on: ubuntu-latest
     needs: [lint, send-info, deploy]
     steps:
@@ -73,7 +73,7 @@ jobs:
           REPO: ${{ needs.send-info.outputs.REPO }}
           USER: ${{ needs.send-info.outputs.USER }}
           WORKFLOW_NAME: ${{ needs.send-info.outputs.WORKFLOW_NAME }}
-          JOB_RESULT: ${{ needs.send-info.result }}
           LINT_RESULT: ${{ needs.lint.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
+          SEND_INFO_RESULT: ${{ needs.send-info.result }}
         run: python3 new.py
