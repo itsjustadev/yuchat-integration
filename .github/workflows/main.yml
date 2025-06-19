@@ -90,5 +90,5 @@ jobs:
           YUCHAT_WORKSPACE: ${{ secrets.YUCHAT_WORKSPACE }}
         run: |
           source .venv/bin/activate
-          python3 main.py
+          python3 app/main.py
         shell: bash
