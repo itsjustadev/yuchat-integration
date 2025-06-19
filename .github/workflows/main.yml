@@ -55,7 +55,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: send-info
     steps:
-      - name: Deploy stub
+      - name: Install dependencies with uv
+        run: uv pip install
+      - name: Deploy job
         run: echo "This is a deploy job. You can add additional logic here"
   
   check-jobs-success:
