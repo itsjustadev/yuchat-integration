@@ -7,7 +7,7 @@ load_dotenv()
 BOT_TOKEN: str | None = os.getenv("BOT_TOKEN")
 CHAT_ID: str | None = os.getenv("CHAT_ID")
 if not BOT_TOKEN or not CHAT_ID:
-    raise ValueError("BOT_TOKEN и CHAT_ID должны быть заданы в .env")
+    raise ValueError("BOT_TOKEN и CHAT_ID должны быть заданы в actions secrets")
 
 print(f"Build url: {os.getenv("BUILD_URL")}")
 print(f"Branch: {os.getenv("BRANCH")}")
