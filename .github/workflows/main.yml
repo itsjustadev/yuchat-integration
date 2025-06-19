@@ -1,4 +1,4 @@
-name: Run Python with env vars
+name: get pipeline info
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  run-python:
+  get-info:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,17 @@ jobs:
           USER: ${{ env.USER }}
           WORKFLOW_NAME: ${{ env.WORKFLOW_NAME }}
         run: python3 new.py
+  
+  check-get-info-success:
+    runs-on: ubuntu-latest
+    needs: get-info
+    steps:
+      - name: Check previous job status
+        run: |
+          echo "Get-info job conclusion: ${{ needs.get-info.result }}"
+          if [ "${{ needs.get-info.result }}" = "success" ]; then
+            echo "get-info job succeeded!"
+          else
+            echo "get-info job failed or was cancelled!"
+            exit 1
+          fi
