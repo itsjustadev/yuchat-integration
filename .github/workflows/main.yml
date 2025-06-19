@@ -24,7 +24,7 @@ jobs:
       - name: Run Ruff Check
         run: ruff check .
 
-  get-info:
+  send-info:
     runs-on: ubuntu-latest
     outputs:
       BUILD_URL: ${{ steps.set-vars.outputs.BUILD_URL }}
@@ -53,14 +53,14 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: get-info
+    needs: send-info
     steps:
       - name: Deploy stub
         run: echo "This is a deploy job. You can add additional logic here"
   
-  check-get-info-success:
+  check-send-info-success:
     runs-on: ubuntu-latest
-    needs: [lint, get-info, deploy]
+    needs: [lint, send-info, deploy]
     steps:
 
       - name: Checkout
@@ -68,12 +68,12 @@ jobs:
 
       - name: Run python script
         env:
-          BUILD_URL: ${{ needs.get-info.outputs.BUILD_URL }}
-          BRANCH: ${{ needs.get-info.outputs.BRANCH }}
-          REPO: ${{ needs.get-info.outputs.REPO }}
-          USER: ${{ needs.get-info.outputs.USER }}
-          WORKFLOW_NAME: ${{ needs.get-info.outputs.WORKFLOW_NAME }}
-          JOB_RESULT: ${{ needs.get-info.result }}
+          BUILD_URL: ${{ needs.send-info.outputs.BUILD_URL }}
+          BRANCH: ${{ needs.send-info.outputs.BRANCH }}
+          REPO: ${{ needs.send-info.outputs.REPO }}
+          USER: ${{ needs.send-info.outputs.USER }}
+          WORKFLOW_NAME: ${{ needs.send-info.outputs.WORKFLOW_NAME }}
+          JOB_RESULT: ${{ needs.send-info.result }}
           LINT_RESULT: ${{ needs.lint.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
         run: python3 new.py
