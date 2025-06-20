@@ -1,5 +1,5 @@
 import os
-from classes import TelegramBot
+from classes import TelegramBot, YuchatBot
 
 
 message: str = (
@@ -17,4 +17,4 @@ message: str = (
 
 
 TelegramBot(message).send_message()
-# YuchatBot(message).send_message()
+YuchatBot(message).send_message()
