@@ -11,7 +11,7 @@ message: str = (
     f"<b>Workflow:</b> {os.getenv('WORKFLOW_NAME')}\n"
     f"<b>Lint:</b> {os.getenv('LINT_RESULT')}\n"
     f"<b>Deploy:</b> {os.getenv('DEPLOY_RESULT')}\n"
-    f"<b>Send Info:</b> {os.getenv('SEND_INFO_RESULT')}"
+    f"<b>Get Info:</b> {os.getenv('GET_INFO_RESULT')}"
 )
 
 TelegramBot(message).send_message()

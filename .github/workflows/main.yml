@@ -82,7 +82,7 @@ jobs:
           WORKFLOW_NAME: ${{ needs.get-info.outputs.WORKFLOW_NAME }}
           LINT_RESULT: ${{ needs.lint.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
-          SEND_INFO_RESULT: ${{ needs.get-info.result }}
+          GET_INFO_RESULT: ${{ needs.get-info.result }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           YUCHAT_TOKEN: ${{ secrets.YUCHAT_TOKEN }}
