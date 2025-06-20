@@ -1,5 +1,5 @@
 import os
-from classes import TelegramBot, YuchatBot
+from classes import TelegramBot
 
 
 message: str = (
@@ -9,9 +9,10 @@ message: str = (
     f"*Repository:* `{os.getenv('REPO')}`\n"
     f"*User:* `{os.getenv('USER')}`\n"
     f"*Workflow:* `{os.getenv('WORKFLOW_NAME')}`\n\n"
-    f"🧹 *Lint:* ✅ {os.getenv('LINT_RESULT')}\n"
-    f"🚀 *Deploy:* ✅ {os.getenv('DEPLOY_RESULT')}\n"
-    f"📊 *Get Info:* ✅ {os.getenv('GET_INFO_RESULT')}"
+    f"*Jobs*\n"
+    f"*Lint:* {os.getenv('LINT_RESULT')}\n"
+    f"*Deploy:* {os.getenv('DEPLOY_RESULT')}\n"
+    f"*Get Info:* {os.getenv('GET_INFO_RESULT')}"
 )
 
 
