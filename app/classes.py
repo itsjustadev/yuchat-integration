@@ -28,7 +28,7 @@ class TelegramBot(Bot):
             data={
                 "chat_id": self.CHAT_ID,
                 "text": self.message,
-                "parse_mode": "HTML",
+                "parse_mode": "Markdown",
             },
         )
 
