@@ -14,5 +14,6 @@ message: str = (
     f"<b>Get Info:</b> {os.getenv('GET_INFO_RESULT')}"
 )
 
+
 TelegramBot(message).send_message()
 YuchatBot(message).send_message()
