@@ -1,6 +1,5 @@
-import os
-from fastapi import APIRouter, Request
-from classes import TelegramBot, YuchatBot
+from fastapi import APIRouter
+from classes import TelegramBot
 from formatter import format_message
 from schemas import GithubWebhookRequest
 
