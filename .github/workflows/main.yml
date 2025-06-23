@@ -62,6 +62,12 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Restart Docker Compose
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          YUCHAT_TOKEN: ${{ secrets.YUCHAT_TOKEN }}
+          YUCHAT_CHAT_ID: ${{ secrets.YUCHAT_CHAT_ID }}
+          YUCHAT_WORKSPACE: ${{ secrets.YUCHAT_WORKSPACE }}
         run: |
           docker compose down
           docker compose up -d
