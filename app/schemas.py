@@ -10,3 +10,7 @@ class GithubWebhookRequest(BaseModel):
     LINT_RESULT: str
     DEPLOY_RESULT: str
     GET_INFO_RESULT: str
+
+
+class GithubWebhookResponse(BaseModel):
+    result: bool
