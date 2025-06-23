@@ -18,7 +18,7 @@ class TelegramBot(Bot):
         self.BOT_TOKEN: str | None = os.getenv("BOT_TOKEN")
         self.CHAT_ID: str | None = os.getenv("CHAT_ID")
         if not self.BOT_TOKEN or not self.CHAT_ID:
-            raise ValueError("BOT_TOKEN и CHAT_ID должны быть заданы в actions secrets")
+            raise ValueError("BOT_TOKEN и CHAT_ID должны быть заданы в env")
 
     def send_message(self) -> None:
         url: str = f"https://api.telegram.org/bot{self.BOT_TOKEN}/sendMessage"
@@ -47,9 +47,7 @@ class YuchatBot(Bot):
         self.YUCHAT_WORKSPACE: str | None = os.getenv("YUCHAT_WORKSPACE")
 
         if not self.YUCHAT_TOKEN or not self.YUCHAT_CHAT_ID:
-            raise ValueError(
-                "YUCHAT_TOKEN и YUCHAT_CHAT_ID должны быть заданы в actions secrets"
-            )
+            raise ValueError("YUCHAT_TOKEN и YUCHAT_CHAT_ID должны быть заданы в env")
 
     def send_message(self) -> None:
         url: str = "https://yuchat.ai/public/v1/chat.message.send"

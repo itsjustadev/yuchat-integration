@@ -69,8 +69,7 @@ jobs:
           YUCHAT_CHAT_ID: ${{ secrets.YUCHAT_CHAT_ID }}
           YUCHAT_WORKSPACE: ${{ secrets.YUCHAT_WORKSPACE }}
         run: |
-          docker compose down
-          docker compose up -d
+          echo "Set up a connection to server via user, ip and ssh-key of the server and then add a docker compose restart"
   
   send-workflow-info:
     runs-on: ubuntu-latest
