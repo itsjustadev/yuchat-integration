@@ -74,12 +74,6 @@ jobs:
         run: uv sync
 
       - name: Send notification to CI/CD service
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
-          YUCHAT_TOKEN: ${{ secrets.YUCHAT_TOKEN }}
-          YUCHAT_CHAT_ID: ${{ secrets.YUCHAT_CHAT_ID }}
-          YUCHAT_WORKSPACE: ${{ secrets.YUCHAT_WORKSPACE }}
         run: |
           curl -X POST https://0383-217-11-166-170.ngrok-free.app/webhook/github \
             -H "Content-Type: application/json" \
