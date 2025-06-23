@@ -81,7 +81,7 @@ jobs:
           YUCHAT_CHAT_ID: ${{ secrets.YUCHAT_CHAT_ID }}
           YUCHAT_WORKSPACE: ${{ secrets.YUCHAT_WORKSPACE }}
         run: |
-          curl -X POST https://your-service-domain/notify \
+          curl -X POST https://0383-217-11-166-170.ngrok-free.app/webhook/github \
             -H "Content-Type: application/json" \
             -d "{
               \"BUILD_URL\": \"${{ needs.get-info.outputs.BUILD_URL }}\",
