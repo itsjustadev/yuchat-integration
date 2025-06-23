@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: itjustadev/yuchat:latest
+    ports:
+      - "8000:8000"
+    command: ["/root/.local/bin/uv", "run", "python", "app/main.py"]
+    restart: always
+    env_file:
+      - .env
