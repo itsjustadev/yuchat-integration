@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from classes import TelegramBot
+from classes import TelegramBot, YuchatBot
 from formatter import format_message
 from schemas import GithubWebhookRequest
 
@@ -12,6 +12,6 @@ async def github_webhook(request: GithubWebhookRequest) -> dict[str, str]:
     message: str = format_message(request)
 
     TelegramBot(message).send_message()
-    # YuchatBot(message).send_message()
+    YuchatBot(message).send_message()
 
     return {"status": "good"}
