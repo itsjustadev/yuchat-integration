@@ -93,6 +93,7 @@ jobs:
           YUCHAT_WORKSPACE=${{ secrets.YUCHAT_WORKSPACE }}
           EOL
             docker-compose down
+            docker-compose pull
             docker-compose up -d
           EOF
   send-workflow-info:
