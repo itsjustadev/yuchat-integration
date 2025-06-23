@@ -61,20 +61,6 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3
 
-      - name: Set variables
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
-          YUCHAT_TOKEN: ${{ secrets.YUCHAT_TOKEN }}
-          YUCHAT_CHAT_ID: ${{ secrets.YUCHAT_CHAT_ID }}
-          YUCHAT_WORKSPACE: ${{ secrets.YUCHAT_WORKSPACE }}
-        run: |
-          echo "BOT_TOKEN=$BOT_TOKEN" > .env
-          echo "CHAT_ID=$CHAT_ID" >> .env
-          echo "YUCHAT_TOKEN=$YUCHAT_TOKEN" >> .env
-          echo "YUCHAT_CHAT_ID=$YUCHAT_CHAT_ID" >> .env
-          echo "YUCHAT_WORKSPACE=$YUCHAT_WORKSPACE" >> .env
-
       - name: Restart Docker Compose
         run: |
           mkdir -p ~/.ssh
@@ -84,6 +70,13 @@ jobs:
 
           ssh -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd yuchat
+            cat > .env << EOL
+          BOT_TOKEN=${{ secrets.BOT_TOKEN }}
+          CHAT_ID=${{ secrets.CHAT_ID }}
+          YUCHAT_TOKEN=${{ secrets.YUCHAT_TOKEN }}
+          YUCHAT_CHAT_ID=${{ secrets.YUCHAT_CHAT_ID }}
+          YUCHAT_WORKSPACE=${{ secrets.YUCHAT_WORKSPACE }}
+          EOL
             docker-compose down
             docker-compose up -d
           EOF
