@@ -73,22 +73,24 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Run python script
+      - name: Send notification to CI/CD service
         env:
-          BUILD_URL: ${{ needs.get-info.outputs.BUILD_URL }}
-          BRANCH: ${{ needs.get-info.outputs.BRANCH }}
-          REPO: ${{ needs.get-info.outputs.REPO }}
-          USER: ${{ needs.get-info.outputs.USER }}
-          WORKFLOW_NAME: ${{ needs.get-info.outputs.WORKFLOW_NAME }}
-          LINT_RESULT: ${{ needs.lint.result }}
-          DEPLOY_RESULT: ${{ needs.deploy.result }}
-          GET_INFO_RESULT: ${{ needs.get-info.result }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           YUCHAT_TOKEN: ${{ secrets.YUCHAT_TOKEN }}
           YUCHAT_CHAT_ID: ${{ secrets.YUCHAT_CHAT_ID }}
           YUCHAT_WORKSPACE: ${{ secrets.YUCHAT_WORKSPACE }}
         run: |
-          source .venv/bin/activate
-          python3 app/main.py
+          curl -X POST https://your-service-domain/notify \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"BUILD_URL\": \"${{ needs.get-info.outputs.BUILD_URL }}\",
+              \"BRANCH\": \"${{ needs.get-info.outputs.BRANCH }}\",
+              \"REPO\": \"${{ needs.get-info.outputs.REPO }}\",
+              \"USER\": \"${{ needs.get-info.outputs.USER }}\",
+              \"WORKFLOW_NAME\": \"${{ needs.get-info.outputs.WORKFLOW_NAME }}\",
+              \"LINT_RESULT\": \"${{ needs.lint.result }}\",
+              \"DEPLOY_RESULT\": \"${{ needs.deploy.result }}\",
+              \"GET_INFO_RESULT\": \"${{ needs.get-info.result }}\"
+            }"
         shell: bash
