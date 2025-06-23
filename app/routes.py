@@ -13,6 +13,6 @@ async def github_webhook(request: GithubWebhookRequest) -> dict[str, str]:
     message: str = format_message(request)
 
     TelegramBot(message).send_message()
-    YuchatBot(message).send_message()
+    # YuchatBot(message).send_message()
 
     return {"status": "ok"}
